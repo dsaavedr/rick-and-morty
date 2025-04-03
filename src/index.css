@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-100: #eee3ff;
+  --color-primary-600: #8054c7;
+  --color-primary-700: #5a3696;
+  --color-secondary-600: #63d838;
+}
+
+@utility shadow-lg {
+  box-shadow: 0px 4px 60px 0px #0000000d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  @apply m-0 min-h-screen;
+}
