@@ -3,26 +3,27 @@ import { allCharactersQuery } from "../lib/queries/characters";
 import { useQuery } from "@tanstack/react-query";
 import { execute } from "../graphql/execute";
 import Loader from "./Loader";
-import { Character } from "../graphql/graphql";
+import { AllCharactersQuery } from "../graphql/graphql";
 import SidebarCharacterRow from "./SidebarCharacterRow";
 
 const SidebarContent = () => {
   const [starredCharacterIds, setStarredCharacterIds] = useState<string[]>([]);
   const [starredCharactersCount, setStarredCharactersCount] = useState(0);
   const [totalCharactersCount, setTotalCharactersCount] = useState(0);
-  const {
-    data: { data },
-    error,
-    isLoading,
-  } = useQuery({
+  const [charactersData, setCharactersData] =
+    useState<AllCharactersQuery | null>(null);
+  const { data, error, isLoading } = useQuery({
     queryKey: ["characters"],
     queryFn: () => execute(allCharactersQuery, { page: 1 }),
   });
 
   useEffect(() => {
-    if (!data?.characters?.results?.length) return;
+    console.log(data);
+    const newData = data?.data?.characters?.results;
+    if (!newData?.length) return;
 
-    setTotalCharactersCount(data?.characters?.results?.length);
+    setTotalCharactersCount(newData.length);
+    setCharactersData(data!.data!);
   }, [data]);
 
   useEffect(() => {
@@ -31,9 +32,10 @@ const SidebarContent = () => {
 
   useEffect(() => {
     setTotalCharactersCount(
-      data?.characters?.results?.length - starredCharactersCount,
+      (charactersData?.characters?.results?.length || 0) -
+        starredCharactersCount,
     );
-  }, [starredCharactersCount, data]);
+  }, [starredCharactersCount, charactersData]);
 
   const toggleStarred = (id: string) => {
     if (starredCharacterIds.includes(id)) {
@@ -55,14 +57,15 @@ const SidebarContent = () => {
         STARRED CHARACTERS ({starredCharactersCount})
       </h2>
       <div className="">
-        {data?.characters?.results
-          ?.filter((c: Character) =>
-            starredCharacterIds.includes(c.id as string),
+        {charactersData?.characters?.results
+          ?.filter(
+            (c) => c !== null && starredCharacterIds.includes(c.id || ""),
           )
-          .map((c: Character) => {
+          .map((c) => {
             if (!c) return null;
             return (
               <SidebarCharacterRow
+                key={c.id}
                 starred
                 onClick={toggleStarred}
                 character={c}
@@ -74,14 +77,18 @@ const SidebarContent = () => {
         CHARACTERS ({totalCharactersCount})
       </h2>
       <div className="">
-        {data?.characters?.results
+        {charactersData?.characters?.results
           ?.filter(
-            (c: Character) => !starredCharacterIds.includes(c.id as string),
+            (c) => c !== null && !starredCharacterIds.includes(c.id || ""),
           )
-          .map((c: Character) => {
+          .map((c) => {
             if (!c) return null;
             return (
-              <SidebarCharacterRow onClick={toggleStarred} character={c} />
+              <SidebarCharacterRow
+                key={c.id}
+                onClick={toggleStarred}
+                character={c}
+              />
             );
           })}
       </div>

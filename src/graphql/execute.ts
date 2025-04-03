@@ -20,5 +20,5 @@ export async function execute<TResult, TVariables>(
     throw new Error("Network response was not ok");
   }
 
-  return response.json() as TResult;
+  return response.json() as Promise<{ data: TResult }>;
 }
