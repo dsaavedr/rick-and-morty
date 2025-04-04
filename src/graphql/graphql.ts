@@ -203,6 +203,20 @@ export type QueryLocationsByIdsArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
 
+export type SidebarCharactersQueryVariables = Exact<{
+  filter?: InputMaybe<FilterCharacter>;
+}>;
+
+
+export type SidebarCharactersQuery = { __typename?: 'Query', characters?: { __typename?: 'Characters', results?: Array<{ __typename?: 'Character', id?: string | null, name?: string | null, species?: string | null, image?: string | null } | null> | null } | null };
+
+export type CharacterDetailQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type CharacterDetailQuery = { __typename?: 'Query', character?: { __typename?: 'Character', name?: string | null, species?: string | null, type?: string | null, status?: string | null, image?: string | null, origin?: { __typename?: 'Location', name?: string | null, dimension?: string | null } | null } | null };
+
 export type AllCharactersQueryVariables = Exact<{
   page: Scalars['Int']['input'];
 }>;
@@ -229,6 +243,33 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
+export const SidebarCharactersDocument = new TypedDocumentString(`
+    query SidebarCharacters($filter: FilterCharacter) {
+  characters(filter: $filter) {
+    results {
+      id
+      name
+      species
+      image
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<SidebarCharactersQuery, SidebarCharactersQueryVariables>;
+export const CharacterDetailDocument = new TypedDocumentString(`
+    query CharacterDetail($id: ID!) {
+  character(id: $id) {
+    name
+    species
+    type
+    status
+    image
+    origin {
+      name
+      dimension
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CharacterDetailQuery, CharacterDetailQueryVariables>;
 export const AllCharactersDocument = new TypedDocumentString(`
     query AllCharacters($page: Int!) {
   characters(page: $page) {

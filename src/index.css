@@ -7,8 +7,28 @@
   --color-secondary-600: #63d838;
 }
 
-@utility shadow-lg {
-  box-shadow: 0px 4px 60px 0px #0000000d;
+@layer components {
+  .filter-option {
+    @apply flex-1 cursor-pointer rounded-lg border border-gray-200 px-2.5 py-3 text-sm font-semibold;
+
+    &:hover,
+    &.selected {
+      @apply bg-primary-100 text-primary-600 border-primary-100;
+    }
+  }
+}
+
+@layer utilities {
+  .custom-shadow-lg {
+    box-shadow: 0px 4px 60px 0px #0000000d;
+  }
+
+  .custom-shadow-sm {
+    box-shadow:
+      0px 4px 6px -2px #0000000d,
+      0px 10px 15px -3px #0000001a,
+      0px 0px 0px 1px #0000000d;
+  }
 }
 
 * {

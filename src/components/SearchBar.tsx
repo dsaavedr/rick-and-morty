@@ -1,11 +1,20 @@
-import React from "react";
+import React, { ChangeEventHandler } from "react";
 import { CiSearch } from "react-icons/ci";
 import { HiOutlineAdjustments } from "react-icons/hi";
 
+interface Props extends React.ComponentPropsWithoutRef<"div"> {
+  onIconClick: () => void;
+  value: string;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+}
+
 const SearchBar = ({
   className,
+  value,
+  onChange,
+  onIconClick,
   ...props
-}: React.ComponentPropsWithoutRef<"div">) => {
+}: Props) => {
   return (
     <div
       {...props}
@@ -18,8 +27,14 @@ const SearchBar = ({
         placeholder="Search or filter results"
         name="search"
         id="search"
+        value={value}
+        onChange={onChange}
       />
-      <HiOutlineAdjustments className="text-primary-600 ml-auto" size={20} />
+      <HiOutlineAdjustments
+        className="text-primary-600 ml-auto cursor-pointer"
+        size={20}
+        onClick={onIconClick}
+      />
     </div>
   );
 };
