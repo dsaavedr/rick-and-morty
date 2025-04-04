@@ -215,7 +215,7 @@ export type CharacterDetailQueryVariables = Exact<{
 }>;
 
 
-export type CharacterDetailQuery = { __typename?: 'Query', character?: { __typename?: 'Character', name?: string | null, species?: string | null, type?: string | null, status?: string | null, image?: string | null, origin?: { __typename?: 'Location', name?: string | null, dimension?: string | null } | null } | null };
+export type CharacterDetailQuery = { __typename?: 'Query', character?: { __typename?: 'Character', name?: string | null, species?: string | null, type?: string | null, gender?: string | null, status?: string | null, image?: string | null, origin?: { __typename?: 'Location', name?: string | null, dimension?: string | null } | null } | null };
 
 export type AllCharactersQueryVariables = Exact<{
   page: Scalars['Int']['input'];
@@ -261,6 +261,7 @@ export const CharacterDetailDocument = new TypedDocumentString(`
     name
     species
     type
+    gender
     status
     image
     origin {

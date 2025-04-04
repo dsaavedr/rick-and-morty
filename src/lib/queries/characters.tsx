@@ -19,6 +19,7 @@ export const characterDetailQuery = graphql(`
       name
       species
       type
+      gender
       status
       image
       origin {

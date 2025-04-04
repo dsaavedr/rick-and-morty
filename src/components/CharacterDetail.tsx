@@ -87,6 +87,10 @@ const CharacterDetail = ({ onMenuClick, drawerOpen }: Props) => {
 
       <div>
         <CharacterDetailRow
+          title="Gender"
+          content={characterData.character?.gender}
+        />
+        <CharacterDetailRow
           title="Species"
           content={characterData.character?.species}
         />

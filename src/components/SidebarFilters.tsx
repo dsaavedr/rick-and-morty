@@ -9,8 +9,10 @@ type Props = {
 
 const Species = ["all", "human", "alien"] as const;
 const Status = ["all", "alive", "dead", "unknown"] as const;
+const Gender = ["all", "male", "female", "unknown"] as const;
 type SpeciesType = ElementType<typeof Species>;
 type StatusType = ElementType<typeof Status>;
+type GenderType = ElementType<typeof Gender>;
 
 type ElementType<T extends ReadonlyArray<unknown>> =
   T extends ReadonlyArray<infer ElementType> ? ElementType : never;
@@ -19,14 +21,19 @@ const SidebarFilters = ({ visible, search, onFilter }: Props) => {
   const [, setSearchParams] = useSearchParams();
   const [selectedSpecies, setSelectedSpecies] = useState<SpeciesType>("all");
   const [selectedStatus, setSelectedStatus] = useState<StatusType>("all");
+  const [selectedGender, setSelectedGender] = useState<GenderType>("all");
 
   const disabled =
-    selectedSpecies === "all" && selectedStatus === "all" && !search;
+    selectedSpecies === "all" &&
+    selectedStatus === "all" &&
+    selectedGender === "all" &&
+    !search;
 
   const handleFilter = () => {
     const params: {
       species?: SpeciesType;
       status?: StatusType;
+      gender?: GenderType;
       name?: string;
     } = {};
 
@@ -35,6 +42,9 @@ const SidebarFilters = ({ visible, search, onFilter }: Props) => {
     }
     if (selectedStatus !== "all") {
       params.status = selectedStatus;
+    }
+    if (selectedGender !== "all") {
+      params.gender = selectedGender;
     }
     if (search) {
       params.name = search;
@@ -69,6 +79,18 @@ const SidebarFilters = ({ visible, search, onFilter }: Props) => {
             key={el}
             className={`filter-option capitalize ${selectedStatus === el ? "selected" : ""}`}
             onClick={() => setSelectedStatus(el)}
+          >
+            {el}
+          </button>
+        ))}
+      </div>
+      <h4 className="mb-2 text-sm text-gray-500">Gender</h4>
+      <div className="mb-6 flex items-center gap-2">
+        {Gender.map((el) => (
+          <button
+            key={el}
+            className={`filter-option capitalize ${selectedGender === el ? "selected" : ""}`}
+            onClick={() => setSelectedGender(el)}
           >
             {el}
           </button>

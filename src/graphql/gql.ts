@@ -16,12 +16,12 @@ import * as types from './graphql';
  */
 type Documents = {
     "\n  query SidebarCharacters($filter: FilterCharacter) {\n    characters(filter: $filter) {\n      results {\n        id\n        name\n        species\n        image\n      }\n    }\n  }\n": typeof types.SidebarCharactersDocument,
-    "\n  query CharacterDetail($id: ID!) {\n    character(id: $id) {\n      name\n      species\n      type\n      status\n      image\n      origin {\n        name\n        dimension\n      }\n    }\n  }\n": typeof types.CharacterDetailDocument,
+    "\n  query CharacterDetail($id: ID!) {\n    character(id: $id) {\n      name\n      species\n      type\n      gender\n      status\n      image\n      origin {\n        name\n        dimension\n      }\n    }\n  }\n": typeof types.CharacterDetailDocument,
     "\n  query AllCharacters($page: Int!) {\n    characters(page: $page) {\n      info {\n        count\n        pages\n        next\n      }\n      results {\n        id\n        name\n        species\n        type\n        image\n        status\n        origin {\n          name\n          dimension\n        }\n      }\n    }\n  }\n": typeof types.AllCharactersDocument,
 };
 const documents: Documents = {
     "\n  query SidebarCharacters($filter: FilterCharacter) {\n    characters(filter: $filter) {\n      results {\n        id\n        name\n        species\n        image\n      }\n    }\n  }\n": types.SidebarCharactersDocument,
-    "\n  query CharacterDetail($id: ID!) {\n    character(id: $id) {\n      name\n      species\n      type\n      status\n      image\n      origin {\n        name\n        dimension\n      }\n    }\n  }\n": types.CharacterDetailDocument,
+    "\n  query CharacterDetail($id: ID!) {\n    character(id: $id) {\n      name\n      species\n      type\n      gender\n      status\n      image\n      origin {\n        name\n        dimension\n      }\n    }\n  }\n": types.CharacterDetailDocument,
     "\n  query AllCharacters($page: Int!) {\n    characters(page: $page) {\n      info {\n        count\n        pages\n        next\n      }\n      results {\n        id\n        name\n        species\n        type\n        image\n        status\n        origin {\n          name\n          dimension\n        }\n      }\n    }\n  }\n": types.AllCharactersDocument,
 };
 
@@ -32,7 +32,7 @@ export function graphql(source: "\n  query SidebarCharacters($filter: FilterChar
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query CharacterDetail($id: ID!) {\n    character(id: $id) {\n      name\n      species\n      type\n      status\n      image\n      origin {\n        name\n        dimension\n      }\n    }\n  }\n"): typeof import('./graphql').CharacterDetailDocument;
+export function graphql(source: "\n  query CharacterDetail($id: ID!) {\n    character(id: $id) {\n      name\n      species\n      type\n      gender\n      status\n      image\n      origin {\n        name\n        dimension\n      }\n    }\n  }\n"): typeof import('./graphql').CharacterDetailDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
